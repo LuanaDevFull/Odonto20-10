@@ -98,7 +98,7 @@ namespace Odonto20_10.Dados
         //ATUALIZAR LOGIN
         public bool atualizaLogin(ModelLogin mdLog)
         {
-            MySqlCommand cmd = new MySqlCommand("update tbLogin set usuario=@usuario, senha=@senha, tipo=@tipo where usuario=@usuario", con.MyConectarBD());
+            MySqlCommand cmd = new MySqlCommand("update tbLogin set senha=@senha, tipo=@tipo where usuario=@usuario", con.MyConectarBD());
            
             cmd.Parameters.AddWithValue("@senha", mdLog.senha);
             cmd.Parameters.AddWithValue("@tipo", mdLog.tipo);

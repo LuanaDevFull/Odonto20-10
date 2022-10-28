@@ -9,10 +9,11 @@ tipo int);
 insert into tbLogin values("draAna","crm125971",2);
 insert into tbLogin values("pudim","chocolate",1);
 
+drop table tbPaciente;
 create table tbPaciente(
 codPaciente int primary key auto_increment,
 nmPaciente varchar(50),
-CPFPaciente varchar(9),
+CPFPaciente varchar(11),
 emailPaciente varchar(50),
 telPaciente varchar(24),
 sexoPaciente varchar(2));
@@ -53,3 +54,6 @@ tbDentista.nmDentista
 from tbAtendimento inner join tbPaciente 
 	on tbAtendimento.codPaciente = tbPaciente.codPaciente
 inner join tbDentista on tbAtendimento.codDentista = tbDentista.codDentista; 
+
+select * from tbPaciente;
+select * from tbLogin;
