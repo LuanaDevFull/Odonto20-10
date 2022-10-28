@@ -1,7 +1,22 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Menu";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-@Html.ActionLink("Cadatrar Paciente", "cadPaciente","Paciente")
+<h2>Cadastros</h2>
+@Html.ActionLink("Cadatrar Paciente", "cadPaciente", "Paciente")
+<br />
+@Html.ActionLink("Cadatrar Especialidade", "cadEspecialidade", "Especialidade")
+<br />
+@Html.ActionLink("Cadatrar Dentista", "cadDentista", "Dentista")
+<br />
+@Html.ActionLink("Cadatrar Login", "cadLogin", "Clinica")
+<br />
+@Html.ActionLink("Cadatrar Atendimento", "cadAtendimento", "Atendimento")
+
+<h2>Consultas</h2>
+@Html.ActionLink("Consultar Pacientes", "ListarPaciente", "Paciente")
+<br/>
+@Html.ActionLink("Consultar Logins", "ListarLogin", "Clinica")
+<br />

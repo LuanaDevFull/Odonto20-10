@@ -157,8 +157,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClinicaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PacienteController.cs" />
+    <Compile Include="Dados\AcClinica.cs" />
     <Compile Include="Dados\AcLogin.cs" />
     <Compile Include="Dados\AcPaciente.cs" />
     <Compile Include="Dados\Conexao.cs" />
@@ -210,6 +212,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\semAcesso.cshtml" />
     <Content Include="Views\Paciente\cadPaciente.cshtml" />
+    <Content Include="Views\Paciente\ListarPaciente.cshtml" />
+    <Content Include="Views\Paciente\editarPaciente.cshtml" />
+    <Content Include="Views\Clinica\cadLogin.cshtml" />
+    <Content Include="Views\Clinica\ListarLogin.cshtml" />
+    <Content Include="Views\Clinica\editarLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

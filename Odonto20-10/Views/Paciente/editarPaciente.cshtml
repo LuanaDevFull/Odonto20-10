@@ -1,11 +1,12 @@
 ﻿@model Odonto20_10.Models.ModelPaciente
 
-<h2 style="text-align:center;">Novo Paciente</h2>
+<h2>Editar Paciente</h2>
 
 <div class="center">
-    @using (Html.BeginForm("cadPaciente", "Paciente", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("editarPaciente", "Paciente", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
+
 
         <div class="form-horizontal">
             <hr />
@@ -57,17 +58,15 @@
                 </div>
             </div>
 
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Salvar" class="btn btn-success" />
                 </div>
             </div>
-
         </div>
     }
-    </div>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 

@@ -10,12 +10,13 @@ namespace Odonto20_10.Controllers
 {
     public class PacienteController : Controller
     {
+         AcPaciente acPac = new AcPaciente();
         // GET: Paciente
         public ActionResult Index()
         {
             return View();
         }
-        AcPaciente acPac = new AcPaciente();
+
         public ActionResult cadPaciente()
         {
             return View();
@@ -28,5 +29,34 @@ namespace Odonto20_10.Controllers
                 ViewBag.msg = "Cadastro efetuado com sucesso";
                 return View();
         }
+
+        public ActionResult ListarPaciente()
+        {
+            return View(acPac.GetPaciente());
+        }
+
+        public ActionResult excluirPaciente(int id)
+        {
+            acPac.DeletePaciente(id);
+            return RedirectToAction("ListarPaciente");
+        }
+
+
+
+        public ActionResult editarPaciente(string id)
+        {
+            return View(acPac.GetPaciente().Find(model => model.codPaciente == id));
+        }
+
+        [HttpPost]
+        public ActionResult editarPaciente(int id, ModelPaciente cm)
+        {
+            cm.codPaciente = id.ToString();
+            acPac.atualizaPaciente(cm);
+            ViewBag.msg = "Cadastro Atualizado com sucesso";
+            return View();
+        }
+
+
     }
 }
