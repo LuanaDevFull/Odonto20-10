@@ -90,6 +90,7 @@ namespace Odonto20_10.Dados
             con.MyDesconectarBD();
             if (i >= 1)
                 return true;
+
             else
                 return false;
         }
@@ -112,6 +113,7 @@ namespace Odonto20_10.Dados
                 return false;
         }
 
+        //LISTAR LOGINS
         public List<ModelLogin> GetModelLogins()
         {
 

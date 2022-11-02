@@ -47,7 +47,6 @@
         <td>
             @Html.ActionLink("Atualizar", "editarPaciente", new { id = item.codPaciente }) |
             @Html.ActionLink("Excluir", "excluirPaciente", new { id = item.codPaciente }, new { onclick = "return confirm('Deseja realmente excluir?');" })
-
         </td>
     </tr>
 }

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Odonto20_10.Models.ModelEspecialidade>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.codEspecialidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipoEspecialidade)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.codEspecialidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipoEspecialidade)
+        </td>
+        <td>
+            @Html.ActionLink("Atualizar", "editarEspec", new { id = item.codEspecialidade }) |
+            @Html.ActionLink("Excluir", "excluirEspec", new { id = item.codEspecialidade }, new { onclick = "return confirm('Deseja realmente excluir?');" })
+
+        </td>
+    </tr>
+}
+
+</table>

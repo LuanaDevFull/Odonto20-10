@@ -2,6 +2,7 @@
 using Odonto20_10.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -123,7 +124,7 @@ namespace Odonto20_10.Dados
         public bool atualizaEspecialidade(ModelEspecialidade mdEspec)
         {
             MySqlCommand cmd = new MySqlCommand("update tbEspecialidade set tipoEspecialidade=@tipoEspecialidad where codEspecialidade=@cod", con.MyConectarBD());
-            cmd.Parameters.AddWithValue("@tipoEspecialidade", mdEspec.tipoEspecialidade);
+            cmd.Parameters.AddWithValue("@tipoEspecialidad", mdEspec.tipoEspecialidade);
             cmd.Parameters.AddWithValue("@cod", mdEspec.codEspecialidade);
 
             int i = cmd.ExecuteNonQuery();
@@ -141,6 +142,7 @@ namespace Odonto20_10.Dados
             MySqlCommand cmd = new MySqlCommand("update tbDentista set nmDentista=@nmDentista, codEspecialidade=@codEspecialidade where codDentista=@cod", con.MyConectarBD());
             cmd.Parameters.AddWithValue("@nmDentista", mdDent.nmDentista);
             cmd.Parameters.AddWithValue("@codEspecialidade", mdDent.codEspecialidade);
+            cmd.Parameters.AddWithValue("@cod", mdDent.codDentista);
 
             int i = cmd.ExecuteNonQuery();
             con.MyDesconectarBD();
@@ -150,7 +152,7 @@ namespace Odonto20_10.Dados
                 return false;
         }
 
-        //ATUALIZAR DENTISTA
+        //ATUALIZAR ATENDIMENTO
 
         public bool atualizaAtendimento(ModelAtendimento mdAtend)
         {
@@ -168,6 +170,93 @@ namespace Odonto20_10.Dados
                 return false;
         }
 
+        //LISTAR ESPECIALIDADE
+        public List<ModelEspecialidade> GetEspecialidades()
+        {
+            List<ModelEspecialidade> EspecList = new List<ModelEspecialidade>();
+            MySqlCommand cmd = new MySqlCommand("select * from tbEspecialidade", con.MyConectarBD());
+            MySqlDataAdapter sd = new MySqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
 
+            sd.Fill(dt);
+            con.MyDesconectarBD();
+            foreach (DataRow dr in dt.Rows)
+            {
+                EspecList.Add(
+
+                    new ModelEspecialidade
+                    {
+                        codEspecialidade = Convert.ToString(dr["codEspecialidade"]),
+                        tipoEspecialidade = Convert.ToString(dr["tipoEspecialidade"]),
+                    });
+            }
+
+            return EspecList;
+        }
+
+        //LISTAR Dentista
+      /*  public DataTable consultaDentistas()
+        {
+
+            MySqlCommand cmd = new MySqlCommand("select * from vwDentista", con.MyConectarBD());
+
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+            DataTable Dentista = new DataTable();
+
+            da.Fill(Dentista);
+
+            con.MyDesconectarBD();
+
+            return Dentista;
+        }
+      */
+        public List<ModelDentista> GetMostrarDentistas()
+        {
+            List<ModelDentista> DentList = new List<ModelDentista>();
+            MySqlCommand cmd = new MySqlCommand("select * from vwDentista", con.MyConectarBD());
+            MySqlDataAdapter sd = new MySqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            sd.Fill(dt);
+            con.MyDesconectarBD();
+            foreach (DataRow dr in dt.Rows)
+            {
+                DentList.Add(
+
+                    new ModelDentista
+                    {
+                        codDentista = Convert.ToString(dr["codDentista"]),
+                        nmDentista = Convert.ToString(dr["nmDentista"]),
+                        Especialidade = Convert.ToString(dr["tipoEspecialidade"]),
+                    });
+
+            }
+            return DentList;
+        }
+
+        public List<ModelDentista> GetDentistas()
+        {
+            List<ModelDentista> DentList = new List<ModelDentista>();
+            MySqlCommand cmd = new MySqlCommand("select * from tbDentista", con.MyConectarBD());
+            MySqlDataAdapter sd = new MySqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            sd.Fill(dt);
+            con.MyDesconectarBD();
+            foreach (DataRow dr in dt.Rows)
+            {
+                DentList.Add(
+
+                    new ModelDentista
+                    {
+                        codDentista = Convert.ToString(dr["codDentista"]),
+                        nmDentista = Convert.ToString(dr["nmDentista"]),
+                        codEspecialidade = Convert.ToString(dr["codEspecialidade"]),
+                    });
+
+            }
+            return DentList;
+        }
     }
 }

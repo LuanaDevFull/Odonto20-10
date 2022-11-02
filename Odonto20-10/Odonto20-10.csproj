@@ -217,6 +217,12 @@
     <Content Include="Views\Clinica\cadLogin.cshtml" />
     <Content Include="Views\Clinica\ListarLogin.cshtml" />
     <Content Include="Views\Clinica\editarLogin.cshtml" />
+    <Content Include="Views\Clinica\cadEspec.cshtml" />
+    <Content Include="Views\Clinica\ListarEspec.cshtml" />
+    <Content Include="Views\Clinica\editarEspec.cshtml" />
+    <Content Include="Views\Clinica\cadDent.cshtml" />
+    <Content Include="Views\Clinica\ListarDent.cshtml" />
+    <Content Include="Views\Clinica\editarDent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

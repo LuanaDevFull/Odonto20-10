@@ -16,7 +16,8 @@ namespace Odonto20_10.Models
         [Required(ErrorMessage = "Insira o Nome")]
         public string nmDentista { get; set; }
 
-        [Display(Name = "Código da Especialidade")]
+        [Display(Name = "Código Especialidade")]
         public string codEspecialidade { get; set; }
+        public string Especialidade { get; set; }
     }
 }
