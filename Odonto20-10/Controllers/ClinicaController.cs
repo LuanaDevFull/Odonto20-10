@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace Odonto20_10.Controllers
 {
@@ -15,6 +16,7 @@ namespace Odonto20_10.Controllers
     {
         AcLogin acLog = new AcLogin();
         AcClinica acClinic = new AcClinica();
+        ModelDentista mdDent = new ModelDentista();
 
         //LOGIN
         public ActionResult cadLogin()
@@ -107,27 +109,23 @@ namespace Odonto20_10.Controllers
         public void CarregaEspecialidade()
         {
             List<SelectListItem> especialidades = new List<SelectListItem>();
-
             using (MySqlConnection con = new MySqlConnection("Server=localhost;DataBase=bdOdonto;User=root;pwd=12345678"))
             {
                 con.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from tbEspecialidade;", con);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())
-                {
-                    especialidades.Add(new SelectListItem
+                    MySqlCommand cmd = new MySqlCommand("select * from tbEspecialidade;", con);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
                     {
-                        Text = rdr[1].ToString(),
-                        Value = rdr[0].ToString()
-                    });
-                }
-                con.Close();
-                con.Open();
+                        especialidades.Add(new SelectListItem
+                        {
+                            Text = rdr[1].ToString(),
+                            Value = rdr[0].ToString()
+                        });
+                    }
+                  con.Close();
             }
             ViewBag.especialidades = new SelectList(especialidades, "Value", "Text");
         }
-
         public ActionResult cadDent()
         {
             CarregaEspecialidade();
@@ -147,7 +145,7 @@ namespace Odonto20_10.Controllers
 
         public ActionResult ListarDent()
         {
-            return View(acClinic.GetMostrarDentistas());
+            return View(acClinic.GetDentistas());
         }
 
         public ActionResult excluirDent(int id)
@@ -158,13 +156,15 @@ namespace Odonto20_10.Controllers
 
         public ActionResult editarDent(string id)
         {
-
+            CarregaEspecialidade();
             return View(acClinic.GetDentistas().Find(model => model.codDentista == id));
         }
 
         [HttpPost]
         public ActionResult editarDent(int id, ModelDentista cm)
         {
+            CarregaEspecialidade();
+            cm.codEspecialidade = Request["especialidades"];
             cm.codDentista = id.ToString();
             acClinic.atualizaDentista(cm);
             ViewBag.msg = "Cadastro Atualizado com sucesso";

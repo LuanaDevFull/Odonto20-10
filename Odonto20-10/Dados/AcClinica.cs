@@ -211,7 +211,7 @@ namespace Odonto20_10.Dados
             return Dentista;
         }
       */
-        public List<ModelDentista> GetMostrarDentistas()
+        public List<ModelDentista> GetDentistas()
         {
             List<ModelDentista> DentList = new List<ModelDentista>();
             MySqlCommand cmd = new MySqlCommand("select * from vwDentista", con.MyConectarBD());
@@ -228,31 +228,8 @@ namespace Odonto20_10.Dados
                     {
                         codDentista = Convert.ToString(dr["codDentista"]),
                         nmDentista = Convert.ToString(dr["nmDentista"]),
-                        Especialidade = Convert.ToString(dr["tipoEspecialidade"]),
-                    });
-
-            }
-            return DentList;
-        }
-
-        public List<ModelDentista> GetDentistas()
-        {
-            List<ModelDentista> DentList = new List<ModelDentista>();
-            MySqlCommand cmd = new MySqlCommand("select * from tbDentista", con.MyConectarBD());
-            MySqlDataAdapter sd = new MySqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-
-            sd.Fill(dt);
-            con.MyDesconectarBD();
-            foreach (DataRow dr in dt.Rows)
-            {
-                DentList.Add(
-
-                    new ModelDentista
-                    {
-                        codDentista = Convert.ToString(dr["codDentista"]),
-                        nmDentista = Convert.ToString(dr["nmDentista"]),
                         codEspecialidade = Convert.ToString(dr["codEspecialidade"]),
+                        Especialidade = Convert.ToString(dr["tipoEspecialidade"]),
                     });
 
             }
