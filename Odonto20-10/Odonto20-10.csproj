@@ -223,6 +223,9 @@
     <Content Include="Views\Clinica\cadDent.cshtml" />
     <Content Include="Views\Clinica\ListarDent.cshtml" />
     <Content Include="Views\Clinica\editarDent.cshtml" />
+    <Content Include="Views\Clinica\cadAtendimento.cshtml" />
+    <Content Include="Views\Clinica\ListarAtend.cshtml" />
+    <Content Include="Views\Clinica\editarAtend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

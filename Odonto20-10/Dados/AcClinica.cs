@@ -78,7 +78,6 @@ namespace Odonto20_10.Dados
         }
         
         //DELETAR ESPECIALIDADE
-
         public bool DeletarEspecialidade(int id)
         {
             MySqlCommand cmd = new MySqlCommand("delete from tbEspecialidade where codEspecialidade=@id", con.MyConectarBD());
@@ -92,7 +91,6 @@ namespace Odonto20_10.Dados
         }
 
         //DELETAR DENTISTA
-
         public bool DeletarDentista(int id)
         {
             MySqlCommand cmd = new MySqlCommand("delete from tbDentista where codDentista=@id", con.MyConectarBD());
@@ -106,7 +104,6 @@ namespace Odonto20_10.Dados
         }
 
         //DELETAR ATENDIMENTO
-
         public bool DeletarAtendimento(int id)
         {
             MySqlCommand cmd = new MySqlCommand("delete from tbAtendimento where codAtendimento=@id", con.MyConectarBD());
@@ -120,7 +117,6 @@ namespace Odonto20_10.Dados
         }
 
         //ATUALIZAR ESPECIALIDADE
-
         public bool atualizaEspecialidade(ModelEspecialidade mdEspec)
         {
             MySqlCommand cmd = new MySqlCommand("update tbEspecialidade set tipoEspecialidade=@tipoEspecialidad where codEspecialidade=@cod", con.MyConectarBD());
@@ -136,7 +132,6 @@ namespace Odonto20_10.Dados
         }
 
         //ATUALIZAR DENTISTA
-
         public bool atualizaDentista(ModelDentista mdDent)
         {
             MySqlCommand cmd = new MySqlCommand("update tbDentista set nmDentista=@nmDentista, codEspecialidade=@codEspecialidade where codDentista=@cod", con.MyConectarBD());
@@ -153,7 +148,6 @@ namespace Odonto20_10.Dados
         }
 
         //ATUALIZAR ATENDIMENTO
-
         public bool atualizaAtendimento(ModelAtendimento mdAtend)
         {
             MySqlCommand cmd = new MySqlCommand("update tbAtendimento set dataAtendimento=@data, horaDentista=@hora, codPaciente=@codPaciente, codDentista=@codDentista  where codAtendimento=@cod", con.MyConectarBD());
@@ -161,6 +155,7 @@ namespace Odonto20_10.Dados
             cmd.Parameters.AddWithValue("@hora", mdAtend.horaDentista);
             cmd.Parameters.AddWithValue("@codPaciente", mdAtend.codPaciente);
             cmd.Parameters.AddWithValue("@codDentista", mdAtend.codDentista);
+            cmd.Parameters.AddWithValue("@cod", mdAtend.codAtendimento);
 
             int i = cmd.ExecuteNonQuery();
             con.MyDesconectarBD();
@@ -194,23 +189,7 @@ namespace Odonto20_10.Dados
             return EspecList;
         }
 
-        //LISTAR Dentista
-      /*  public DataTable consultaDentistas()
-        {
-
-            MySqlCommand cmd = new MySqlCommand("select * from vwDentista", con.MyConectarBD());
-
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-            DataTable Dentista = new DataTable();
-
-            da.Fill(Dentista);
-
-            con.MyDesconectarBD();
-
-            return Dentista;
-        }
-      */
+        //LISTAR DENTISTA
         public List<ModelDentista> GetDentistas()
         {
             List<ModelDentista> DentList = new List<ModelDentista>();
@@ -234,6 +213,34 @@ namespace Odonto20_10.Dados
 
             }
             return DentList;
+        }
+
+        //LISTAR ATENDIMENTO
+        public List<ModelAtendimento> GetAtendimentos()
+        {
+            List<ModelAtendimento> AtendList = new List<ModelAtendimento>();
+            MySqlCommand cmd = new MySqlCommand("select * from vwAtendimento", con.MyConectarBD());
+            MySqlDataAdapter sd = new MySqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            sd.Fill(dt);
+            con.MyDesconectarBD();
+            foreach (DataRow dr in dt.Rows)
+            {
+                AtendList.Add(
+
+                    new ModelAtendimento
+                    {
+                        codAtendimento = Convert.ToString(dr["codAtendimento"]),
+                        dataAtendimento = Convert.ToString(dr["dataAtendimento"]),
+                        horaDentista = Convert.ToString(dr["horaDentista"]),
+                        nmPaciente = Convert.ToString(dr["nmPaciente"]),
+                        nmDentista = Convert.ToString(dr["nmDentista"]),
+                        codPaciente = Convert.ToString(dr["codPaciente"]),
+                        codDentista = Convert.ToString(dr["codDentista"]),
+                    });
+            }
+            return AtendList;
         }
     }
 }

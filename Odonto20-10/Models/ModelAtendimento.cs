@@ -20,11 +20,15 @@ namespace Odonto20_10.Models
         [Display(Name = "Hora")]
         public string horaDentista { get; set; }
 
-        [Display(Name = "Código do Paciente")]
+        [Display(Name = "Paciente")]
         public string codPaciente { get; set; }
+        [Display(Name = "Paciente")]
+        public string nmPaciente { get; set; }
 
-        [Display(Name = "Código do Dentista")]
+        [Display(Name = "Dentista")]
         public string codDentista { get; set; }
+        [Display(Name = "Dentista")]
+        public string nmDentista { get; set; }
 
         public string confAgendamento { get; set; }
 

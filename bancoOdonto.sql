@@ -41,19 +41,38 @@ foreign key (codDentista)  references tbDentista(codDentista));
 
 
 create view vwDentista as select
+tbDentista.codDentista,
 tbDentista.nmDentista,
-tbEspecialidade.tipoEspecialidade
+tbEspecialidade.tipoEspecialidade,
+tbDentista.codEspecialidade
 from tbDentista inner join tbEspecialidade
 	on tbDentista.codEspecialidade = tbEspecialidade.codEspecialidade;
+    
+    create view vwEspeDent as select
+tbDentista.codDentista,
+tbEspecialidade.tipoEspecialidade,
+tbDentista.codEspecialidade
+from tbDentista inner join tbEspecialidade
+	on tbDentista.codEspecialidade = tbEspecialidade.codEspecialidade;
+    
+    SELECT * FROM tbEspecialidade ORDER BY tipoEspecialidade = 'cirurgião dentista';
+drop view vwDentista;
 
 create view vwAtendimento as select
 tbAtendimento.dataAtendimento,
 tbAtendimento.horaDentista,
 tbPaciente.nmPaciente,
-tbDentista.nmDentista
+tbDentista.nmDentista,
+tbDentista.codEspecialidade
 from tbAtendimento inner join tbPaciente 
 	on tbAtendimento.codPaciente = tbPaciente.codPaciente
 inner join tbDentista on tbAtendimento.codDentista = tbDentista.codDentista; 
 
+
 select * from tbPaciente;
 select * from tbLogin;
+select * from tbDentista;
+select * from tbDentista where tipoEspecialidade=@id;
+update vwDentista set nmDentista="Caio", codEspecialidade=1 where codDentista=3;
+
+update tbLogin set usuario="pudim13", senha="123456", tipo=1 where usuario="pudim2";

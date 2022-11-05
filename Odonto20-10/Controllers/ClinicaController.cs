@@ -16,9 +16,8 @@ namespace Odonto20_10.Controllers
     {
         AcLogin acLog = new AcLogin();
         AcClinica acClinic = new AcClinica();
-        ModelDentista mdDent = new ModelDentista();
 
-        //LOGIN
+        //LOGIN FUNCIONALIDADES
         public ActionResult cadLogin()
         {
             return View();
@@ -66,7 +65,7 @@ namespace Odonto20_10.Controllers
             return View();
         }
 
-        //ESPECIALIDADE
+        //ESPECIALIDADE FUNCIONALIDADES
         public ActionResult cadEspec()
         {
             return View();
@@ -105,7 +104,7 @@ namespace Odonto20_10.Controllers
             return View();
         }
 
-        //DENTISTA
+        //DENTISTA FUNCIONALIDADES
         public void CarregaEspecialidade()
         {
             List<SelectListItem> especialidades = new List<SelectListItem>();
@@ -125,7 +124,8 @@ namespace Odonto20_10.Controllers
                   con.Close();
             }
             ViewBag.especialidades = new SelectList(especialidades, "Value", "Text");
-        }
+        }      
+
         public ActionResult cadDent()
         {
             CarregaEspecialidade();
@@ -155,7 +155,7 @@ namespace Odonto20_10.Controllers
         }
 
         public ActionResult editarDent(string id)
-        {
+        {           
             CarregaEspecialidade();
             return View(acClinic.GetDentistas().Find(model => model.codDentista == id));
         }
@@ -164,10 +164,122 @@ namespace Odonto20_10.Controllers
         public ActionResult editarDent(int id, ModelDentista cm)
         {
             CarregaEspecialidade();
-            cm.codEspecialidade = Request["especialidades"];
+            cm.codEspecialidade = Request["codEspecialidade"];
             cm.codDentista = id.ToString();
             acClinic.atualizaDentista(cm);
             ViewBag.msg = "Cadastro Atualizado com sucesso";
+            return View();
+        }
+
+        //ATENDIMENTO FUNCIONALIDADES
+        public void CarregaDentistas()
+        {
+            List<SelectListItem> dentistas = new List<SelectListItem>();
+            using (MySqlConnection con = new MySqlConnection("Server=localhost;DataBase=bdOdonto;User=root;pwd=12345678"))
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbDentista;", con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    dentistas.Add(new SelectListItem
+                    {
+                        Text = rdr[1].ToString(),
+                        Value = rdr[0].ToString()
+                    });
+                }
+                con.Close();
+            }
+            ViewBag.dentistas = new SelectList(dentistas, "Value", "Text");
+        }
+
+        public void CarregaPacientes()
+        {
+            List<SelectListItem> pacientes = new List<SelectListItem>();
+            using (MySqlConnection con = new MySqlConnection("Server=localhost;DataBase=bdOdonto;User=root;pwd=12345678"))
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbPaciente;", con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    pacientes.Add(new SelectListItem
+                    {
+                        Text = rdr[1].ToString(),
+                        Value = rdr[0].ToString()
+                    });
+                }
+                con.Close();
+            }
+            ViewBag.pacientes = new SelectList(pacientes, "Value", "Text");
+        }
+
+        public ActionResult cadAtendimento()
+        {
+            CarregaDentistas();
+            CarregaPacientes();
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult cadAtendimento(ModelAtendimento mdAtend)
+        {
+            CarregaPacientes();
+            CarregaDentistas();
+
+            acClinic.TestarAgenda(mdAtend);
+            if (mdAtend.confAgendamento == "1")
+            {
+                mdAtend.codPaciente = Request["codPaciente"];
+                mdAtend.codDentista = Request["codDentista"];
+                acClinic.inserirAtendimento(mdAtend);
+
+                ViewBag.msg = "Cadastro realizado com sucesso!";
+            }
+            else if (mdAtend.confAgendamento == "0")
+            {
+                ViewBag.msg = "A agenda não está diponível!";
+            }
+
+            return View();
+        }
+
+        public ActionResult ListarAtend()
+        {
+            return View(acClinic.GetAtendimentos());
+        }
+
+        public ActionResult excluirAtend(int id)
+        {
+            acClinic.DeletarAtendimento(id);
+            return RedirectToAction("ListarAtend");
+        }
+
+        public ActionResult editarAtend(string id)
+        {
+            CarregaPacientes();
+            CarregaDentistas();
+            return View(acClinic.GetAtendimentos().Find(model => model.codAtendimento == id));
+        }
+
+        [HttpPost]
+        public ActionResult editarAtend(int id, ModelAtendimento cm)
+        {
+            CarregaPacientes();
+            CarregaDentistas();
+            acClinic.TestarAgenda(cm);
+            if (cm.confAgendamento == "1")
+            {
+                cm.codDentista = Request["codDentista"];
+                cm.codPaciente = Request["codPaciente"];
+                cm.codAtendimento = id.ToString();
+                acClinic.atualizaAtendimento(cm);
+                ViewBag.msg = "Cadastro Atualizado com sucesso";
+            }
+            else if (cm.confAgendamento == "0")
+            {
+                ViewBag.msg = "A agenda não está diponível!";
+            }
             return View();
         }
     }
