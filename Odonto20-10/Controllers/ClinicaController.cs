@@ -20,7 +20,14 @@ namespace Odonto20_10.Controllers
         //LOGIN FUNCIONALIDADES
         public ActionResult cadLogin()
         {
-            return View();
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -42,7 +49,14 @@ namespace Odonto20_10.Controllers
 
         public ActionResult ListarLogin()
         {
-            return View(acLog.GetModelLogins());
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(acLog.GetModelLogins());
+            }
         }
 
         public ActionResult excluirLogin(string id)
@@ -53,7 +67,14 @@ namespace Odonto20_10.Controllers
 
         public ActionResult editarLogin(string id)
         {
-            return View(acLog.GetModelLogins().Find(model => model.usuario == id));
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(acLog.GetModelLogins().Find(model => model.usuario == id));
+            }
         }
 
         [HttpPost]
@@ -68,7 +89,14 @@ namespace Odonto20_10.Controllers
         //ESPECIALIDADE FUNCIONALIDADES
         public ActionResult cadEspec()
         {
-            return View();
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }           
         }
 
         [HttpPost]
@@ -81,7 +109,15 @@ namespace Odonto20_10.Controllers
 
         public ActionResult ListarEspec()
         {
-            return View(acClinic.GetEspecialidades());
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(acClinic.GetEspecialidades());
+                
+            }
         }
 
         public ActionResult excluirEspec(int id)
@@ -92,7 +128,14 @@ namespace Odonto20_10.Controllers
 
         public ActionResult editarEspec(string id)
         {
-            return View(acClinic.GetEspecialidades().Find(model => model.codEspecialidade == id));
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(acClinic.GetEspecialidades().Find(model => model.codEspecialidade == id));
+            }
         }
 
         [HttpPost]
@@ -128,24 +171,39 @@ namespace Odonto20_10.Controllers
 
         public ActionResult cadDent()
         {
-            CarregaEspecialidade();
-            return View();
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                CarregaEspecialidade();
+                return View();
+            }
         }
 
         [HttpPost]
         public ActionResult cadDent(ModelDentista mdDent)
         {
-            CarregaEspecialidade();
-            mdDent.codEspecialidade = Request["especialidades"];
-            mdDent.nmDentista = Request["txtNmDent"];
-            acClinic.inserirDentista(mdDent);
-            ViewBag.msg = "Cadastro efetuado com sucesso";
-            return View();
+                CarregaEspecialidade();
+                mdDent.codEspecialidade = Request["especialidades"];
+                mdDent.nmDentista = Request["txtNmDent"];
+                acClinic.inserirDentista(mdDent);
+                ViewBag.msg = "Cadastro efetuado com sucesso";
+                return View();
         }
 
         public ActionResult ListarDent()
         {
-            return View(acClinic.GetDentistas());
+
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(acClinic.GetDentistas());
+            }
         }
 
         public ActionResult excluirDent(int id)
@@ -155,9 +213,16 @@ namespace Odonto20_10.Controllers
         }
 
         public ActionResult editarDent(string id)
-        {           
-            CarregaEspecialidade();
-            return View(acClinic.GetDentistas().Find(model => model.codDentista == id));
+        {
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                CarregaEspecialidade();
+                return View(acClinic.GetDentistas().Find(model => model.codDentista == id));
+            }
         }
 
         [HttpPost]
@@ -216,9 +281,16 @@ namespace Odonto20_10.Controllers
 
         public ActionResult cadAtendimento()
         {
-            CarregaDentistas();
-            CarregaPacientes();
-            return View();
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                CarregaDentistas();
+                CarregaPacientes();
+                return View();
+            }
         }
         
         [HttpPost]
@@ -246,7 +318,14 @@ namespace Odonto20_10.Controllers
 
         public ActionResult ListarAtend()
         {
-            return View(acClinic.GetAtendimentos());
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(acClinic.GetAtendimentos());
+            }
         }
 
         public ActionResult excluirAtend(int id)
@@ -257,9 +336,16 @@ namespace Odonto20_10.Controllers
 
         public ActionResult editarAtend(string id)
         {
-            CarregaPacientes();
-            CarregaDentistas();
-            return View(acClinic.GetAtendimentos().Find(model => model.codAtendimento == id));
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                CarregaPacientes();
+                CarregaDentistas();
+                return View(acClinic.GetAtendimentos().Find(model => model.codAtendimento == id));
+            }
         }
 
         [HttpPost]

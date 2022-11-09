@@ -1,69 +1,89 @@
 ﻿@model Odonto20_10.Models.ModelLogin
-
 @{
+    Layout = null;
+}
+<meta charset='UTF-8'>
 
-    ViewBag.Title = "Home Page";
- }
+<link rel='stylesheet' href='~/Content/indexLogin.css'>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-@ViewBag.confCadastro
 
-@ViewBag.msgLogar
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-
 {
-
-    <fieldset>
-
-        <br />
-
-        <h2>Login-In</h2>
-
-        <br />
-
-        <div class="form-group">
-
-            <div class="input-group">
-
-                <span class="input-group-addon"><i style="font-size:20px;" class="fas fa-envelope"></i></span>
-
-                @Html.EditorFor(x => x.usuario, new
-
-                {
-
-                htmlAttributes = new { id = "txtUsuario", senha = "txtUsuario", type = "text", @class = "form-control", placeholder = "Digite o usuario", required = "required", maxlength = "30" }
-
-                })
-
-                @Html.ValidationMessageFor(x => x.usuario, "", new { @class = "text-danger" })
-
-            </div>
-            </div>
-
-            <div class="form-group">
-
-                <div class="input-group">
-
-                    <span class="input-group-addon"><i style="font-size:20px;" class="fas fa-lock"></i></span>
-
-                    @Html.EditorFor(x => x.senha, new
-
-                    {
-
-                    htmlAttributes = new { id = "txtSenha", senha = "txtSenha", type = "password", @class = "form-control", placeholder = "Digite sua senha", required = "required", maxlength = "10" }
-
-                    })
-
-                    @Html.ValidationMessageFor(x => x.senha, "", new { @class = "text-danger" })
-
+    <div class="login">
+        <div class="wrap">
+            <!-- SLIDER -->
+            <div class="content">
+                <!-- LOGO -->
+                <div class="logo">
+                    <a href="#"><img src="~/IMG/smile.png" alt="LOGO CARINHA FELIZ">
+                    </a>
                 </div>
-
+                <!-- SLIDESHOW -->
+                <div id="slideshow">
+                    <div class="primeiro">
+                        <h2><span>SMILLE</span></h2>
+                        <p>Onde belo sorrisos começam!</p>
+                    </div>
+                    <div class="segundo">
+                        <h2><span>NOSSO <br /><br /><br /> INTERESSE</span></h2>
+                        <p>Odontologia dedicada à excelência</p>
+                    </div>
+                    <div class="terceiro">
+                        <h2><span>O QUE<br /><br /><br /> ESPERAMOS</span></h2>
+                        <p>Produzir sorrisos e multiplicarmos a felicidade.</p>
+                    </div>
+                    <div class="quarto">
+                        <h2><span>COMPROMISSO</span></h2>
+                        <p>Nossa paixão é a sua felicidade</p>
+                    </div>
+                </div>
             </div>
+            <!-- LOGIN FORM -->
+            <div class="user">
+                <div class="form-wrap">
+                    <!-- TABS -->
+                    <div class="tabs">
+                        <h3 class="login-tab"><a class="log-in active" href=""><span>Login</span></a></h3>
+                        <!-- TABS CONTENT -->
+                        <div class="tabs-content">
+                            <!-- TABS CONTENT LOGIN -->
+                            <div id="login-tab-content" class="active">
+                                @Html.EditorFor(x => x.usuario, new { htmlAttributes = new { id = "txtUsuario", usuario = "txtUsuario", type = "text", @class = "input", placeholder = "Digite o usuario", required = "required", maxlength = "30" } })
+                                @Html.ValidationMessageFor(x => x.usuario, "", new { @class = "text-danger" })
 
-            <input type="submit" class="button button-a button-big button-rouded" value="ENTRAR"><br />
-
-            <br />
-
-    </fieldset>
-
+                                @Html.EditorFor(x => x.senha, new { htmlAttributes = new { id = "txtSenha", senha = "txtSenha", type = "password", @class = "input", placeholder = "Digite sua senha", required = "required", maxlength = "10" } })
+                                @Html.ValidationMessageFor(x => x.senha, "", new { @class = "text-danger" })
+                                <input type="submit" class="button" value="Login">
+                                <span style="color:white">
+                                    @ViewBag.confCadastro
+                                    <br/>
+                                </span>
+                                <span style="color:white">
+                                    @ViewBag.msgLogar
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script>// SLIDESHOW
+    $(function () {
+        $('#slideshow > div:gt(0)').hide();
+        setInterval(function () {
+            $('#slideshow > div:first')
+                .fadeOut(1000)
+                .next()
+                .fadeIn(1000)
+                .end()
+                .appendTo('#slideshow');
+        }, 4850);
+    });</script>

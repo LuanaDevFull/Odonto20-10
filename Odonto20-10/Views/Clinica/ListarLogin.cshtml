@@ -1,43 +1,45 @@
 ﻿@model IEnumerable<Odonto20_10.Models.ModelLogin>
+<br />
+<br />
+<h2 style="text-align:center">Logins</h2>
+<br />
+<br />
+<table class="table table-striped table-light table-hover table-bordered">
+    <thead class="table-warning">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.senha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
-<h2>Listar Logins Cadastrados</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.usuario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.senha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.confSenha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tipo)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.usuario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.senha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.confSenha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipo)
-        </td>
-        <td>
-            @Html.ActionLink("Atualizar", "editarLogin", new { id = item.usuario }) |
-            @Html.ActionLink("Excluir", "excluirLogin", new { id = item.usuario }, new { onclick = "return confirm('Deseja realmente excluir?');" })
-
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr class="table-info">
+            <td>
+                @Html.DisplayFor(modelItem => item.usuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.senha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo)
+            </td>
+            <td>
+                @if (Session["tipoLogado2"] != null)
+                {
+                    @Html.ActionLink("Atualizar", "editarLogin", new { id = item.usuario })
+                    @Html.ActionLink("Excluir", "excluirLogin", new { id = item.usuario }, new { onclick = "return confirm('Deseja realmente excluir?');" })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

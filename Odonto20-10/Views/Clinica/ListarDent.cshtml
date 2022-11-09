@@ -1,35 +1,45 @@
 ﻿@model IEnumerable<Odonto20_10.Models.ModelDentista>
+<br />
+<br />
+<h2 style="text-align:center">Dentistas</h2>
+<br />
+<br />
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.codDentista)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nmDentista)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Especialidade)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-striped table-light table-hover table-bordered">
+    <thead class="table-danger">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codDentista)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nmDentista)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especialidade)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.codDentista)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nmDentista)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Especialidade)
-        </td>
-        <td>
-            @Html.ActionLink("Atualizar", "editarDent", new { id = item.codDentista }) |
-            @Html.ActionLink("Excluir", "excluirDent", new { id = item.codDentista }, new { onclick = "return confirm('Deseja realmente excluir?');" })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr class="table-info">
+            <td>
+                @Html.DisplayFor(modelItem => item.codDentista)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nmDentista)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Especialidade)
+            </td>
+            <td>
+                @if (Session["tipoLogado2"] != null)
+                {
+                    @Html.ActionLink("Atualizar", "editarDent", new { id = item.codDentista })
+                    @Html.ActionLink("Excluir", "excluirDent", new { id = item.codDentista }, new { onclick = "return confirm('Deseja realmente excluir?');" })
+                }
+            </td>
+        </tr>
+    }
 </table>

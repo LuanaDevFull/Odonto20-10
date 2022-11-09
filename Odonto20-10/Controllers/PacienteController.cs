@@ -10,16 +10,17 @@ namespace Odonto20_10.Controllers
 {
     public class PacienteController : Controller
     {
-         AcPaciente acPac = new AcPaciente();
-        // GET: Paciente
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+         AcPaciente acPac = new AcPaciente();      
         public ActionResult cadPaciente()
         {
-            return View();
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
        
         [HttpPost]
@@ -32,7 +33,14 @@ namespace Odonto20_10.Controllers
 
         public ActionResult ListarPaciente()
         {
-            return View(acPac.GetPaciente());
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(acPac.GetPaciente());
+            }
         }
 
         public ActionResult excluirPaciente(int id)
@@ -45,7 +53,14 @@ namespace Odonto20_10.Controllers
 
         public ActionResult editarPaciente(string id)
         {
-            return View(acPac.GetPaciente().Find(model => model.codPaciente == id));
+            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(acPac.GetPaciente().Find(model => model.codPaciente == id));
+            }
         }
 
         [HttpPost]

@@ -1,54 +1,63 @@
 ﻿@model IEnumerable<Odonto20_10.Models.ModelPaciente>
+<br/>
+<br/>
+<h2 style="text-align:center">Pacientes</h2>
+<br/>
+<br/>
+<table class="table table-striped table-light table-hover table-bordered">
+    <thead class="table-warning">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codPaciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nmPaciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPFPaciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.emailPaciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telPaciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sexoPaciente)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
 
-<h2>Listar Pacientes</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.codPaciente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nmPaciente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CPFPaciente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.emailPaciente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.telPaciente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sexoPaciente)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.codPaciente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nmPaciente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CPFPaciente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.emailPaciente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telPaciente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sexoPaciente)
-        </td>
-        <td>
-            @Html.ActionLink("Atualizar", "editarPaciente", new { id = item.codPaciente }) |
-            @Html.ActionLink("Excluir", "excluirPaciente", new { id = item.codPaciente }, new { onclick = "return confirm('Deseja realmente excluir?');" })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="table-info">
+                <td>
+                    @Html.DisplayFor(modelItem => item.codPaciente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nmPaciente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPFPaciente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.emailPaciente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telPaciente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sexoPaciente)
+                </td>
+                <td>
+                    @if (Session["tipoLogado2"] != null)
+                    {
+                        @Html.ActionLink("Atualizar", "editarPaciente", new { id = item.codPaciente })
+                        @Html.ActionLink("Excluir", "excluirPaciente", new { id = item.codPaciente }, new { onclick = "return confirm('Deseja realmente excluir?');" })
+                    }
+                </td>
+            </tr>
+        }
 
 </table>

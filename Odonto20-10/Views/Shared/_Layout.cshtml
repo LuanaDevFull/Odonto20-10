@@ -3,87 +3,109 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
     <meta charset="utf-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel='stylesheet' href='~/Content/estilo.css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <title>@ViewBag.Title Smille ASP.NET</title>
 
-    @Styles.Render("~/Content/css")
-
+    @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="~/Home/About">SMILLE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                @if (Session["usuarioLogado"] != null || Session["senhaLogado"] != null)
+                {
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="#"> Usuario @Session["usuarioLogado"] <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Home/About"> Sobre</a>
+                    </li>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-
-        <div class="container">
-
-            <div class="navbar-header">
-
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-
-                    <span class="icon-bar"></span>
-
-                    <span class="icon-bar"></span>
-
-                    <span class="icon-bar"></span>
-
-                </button>
-
-                @Html.ActionLink("Smille", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-
-            </div>
-
-            <div class="navbar-collapse collapse">
-
-                <ul class="nav navbar-nav">
-                    
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li> 
-                    }
-                    @if (Session["usuarioLogado"] != null || Session["senhaLogado"] != null)
+                    if (Session["tipologado2"] != null)
                     {
-                        <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-
-                        if (Session["tipologado2"] != null)
-                        {
-
-                            <li>@Html.ActionLink("Menu de Opções", "menuOpcoes", "Home")</li>
-
-                        }
-                        <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Cadastrar
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="~/Paciente/cadPaciente">Paciente</a>
+                                <a class="dropdown-item" href="~/Clinica/cadLogin">Login</a>
+                                <a class="dropdown-item" href="~/Clinica/cadEspec">Especialidade</a>
+                                <a class="dropdown-item" href="~/Clinica/cadDent">Dentista</a>
+                                <a class="dropdown-item" href="~/Clinica/cadAtendimento">Atendimento</a>
+                            </div>
+                        </li>
                     }
 
-                </ul>
-
-            </div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Consultar
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="~/Paciente/ListarPaciente">Paciente</a>
+                            <a class="dropdown-item" href="~/Clinica/ListarLogin">Login</a>
+                            <a class="dropdown-item" href="~/Clinica/ListarEspec">Especialidade</a>
+                            <a class="dropdown-item" href="~/Clinica/ListarDent">Dentista</a>
+                            <a class="dropdown-item" href="~/Clinica/ListarAtend">Atendimento</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Home/Logout">Logout</a>
+                    </li>
+                }
+            </ul>
 
         </div>
+    </nav>
 
-    </div>
+    @RenderBody()
 
-    <div class="container body-content">
-
-        @RenderBody()
-
-        <hr />
-
+    <div class="footer-dark">
         <footer>
-
-            <p>&copy; @DateTime.Now.Year - Smille ASP.NET</p>
-
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Serviços</h3>
+                        <ul>
+                            <li><a href="#">Cirurgias</a></li>
+                            <li><a href="#">Limpeza</a></li>
+                            <li><a href="#">Muito mais!</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Contatos</h3>
+                        <ul>
+                            <li><a href="#" class="disabled">(11) 95863-8790</a></li>
+                            <li><a href="#">(11) 3946-8654</a></li>
+                            <li><a href="#">(11) 96854-8741</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>SMILLE</h3>
+                        <p>Cliníca Odontológica consolidada a mais de 10 anos no mercado. Prezamos pela satisfação do nossos clientes!</p>
+                    </div>
+                      </div>
+                <p>&copy; @DateTime.Now.Year - Smille ASP.NET</p>
+            </div>
         </footer>
-
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-
-    @Scripts.Render("~/bundles/bootstrap")
 
     @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
 </body>
-
 </html>

@@ -36,7 +36,7 @@ namespace Odonto20_10.Controllers
                 else
                 {
                     Session["tipoLogado2"] = verLogin.tipo.ToString();//=2
-                }
+                }               
 
                 return RedirectToAction("About", "Home");
             }
@@ -44,7 +44,7 @@ namespace Odonto20_10.Controllers
             {
                 ViewBag.msgLogar = "Usuário não encontrado. Verifique o nome do usuário e a senha";
                 return View();
-            }
+            }           
         }
 
 
@@ -56,38 +56,36 @@ namespace Odonto20_10.Controllers
             }
             else
             {
-                ViewBag.Message = "Your application description page.";
-
                 return View();
             }
         }
 
-        public ActionResult menuOpcoes()
-        {
-            if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                if (Session["tipoLogado2"] == null)
-                {
-                    return RedirectToAction("semAcesso", "Home");
-                }
-                else
-                {
-                    ViewBag.Message = "Your contact page.";
-                    return View();
-                }
-            }
-        }
+        //public ActionResult menuOpcoes()
+        //{
+        //    if (Session["usuarioLogado"] == null || Session["senhaLogado"] == null)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    else
+        //    {
+        //        if (Session["tipoLogado2"] == null)
+        //        {
+        //            return RedirectToAction("semAcesso", "Home");
+        //        }
+        //        else
+        //        {
+        //            ViewBag.Message = "Your contact page.";
+        //            return View();
+        //        }
+        //    }
+        //}
 
-        public ActionResult semAcesso()
-        {
-            Response.Write("<script>alert('Sem acesso!')</script>");
-            ViewBag.Message = "Você não tem acesso a essa página";
-            return View();
-        }
+        //public ActionResult semAcesso()
+        //{
+        //    Response.Write("<script>alert('Sem acesso!')</script>");
+        //    ViewBag.Message = "Você não tem acesso a essa página";
+        //    return View();
+        //}
 
         public ActionResult Logout()
         {
