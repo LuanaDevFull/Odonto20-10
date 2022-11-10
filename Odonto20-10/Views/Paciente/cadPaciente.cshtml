@@ -1,5 +1,9 @@
 ﻿@model Odonto20_10.Models.ModelPaciente
-
+@{
+    List<String> Sexo = new List<String>();
+    Sexo.Add("F");
+    Sexo.Add("M");
+}
 <h2 style="text-align:center;">Novo Paciente</h2>
 
 <div class="center">
@@ -46,7 +50,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.sexoPaciente, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.sexoPaciente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.sexoPaciente, new MultiSelectList(Sexo), new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.sexoPaciente, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -66,8 +70,8 @@
 
         </div>
     }
-    </div>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 

@@ -36,6 +36,7 @@ namespace Odonto20_10.Controllers
             acLog.TestarLogin(mdLog);
             if (mdLog.confUsuario == "1")
             {
+                mdLog.tipo = Request["tipo"];
                 acLog.inserirLogin(mdLog);
                 ViewBag.msg = "Cadastro realizado com sucesso!";
             }
@@ -80,6 +81,7 @@ namespace Odonto20_10.Controllers
         [HttpPost]
         public ActionResult editarLogin(string id, ModelLogin cm)
         {
+            cm.tipo = Request["tipo"];
             cm.usuario = id.ToString();
             acLog.atualizaLogin(cm);
             ViewBag.msg = "Cadastro Atualizado com sucesso";

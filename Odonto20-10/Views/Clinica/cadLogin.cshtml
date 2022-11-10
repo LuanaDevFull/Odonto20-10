@@ -1,5 +1,10 @@
 ﻿@model Odonto20_10.Models.ModelLogin
 <h2>Cadastrar Usuário</h2>
+@{
+        List<int> Tipo = new List<int>();
+        Tipo.Add(1);
+        Tipo.Add(2);
+}
 
 <div class="center">
     @using (Html.BeginForm("cadLogin", "Clinica", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -36,7 +41,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.tipo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.tipo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.tipo, new MultiSelectList(Tipo), new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
                 </div>
             </div>

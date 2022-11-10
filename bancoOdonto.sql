@@ -1,5 +1,6 @@
 create database bdOdonto;
 use bdOdonto;
+drop database bdOdonto;
 
 create table tbLogin(
 usuario varchar(50) primary key,
@@ -9,7 +10,6 @@ tipo int);
 insert into tbLogin values("draAna","crm125971",2);
 insert into tbLogin values("pudim","chocolate",1);
 
-drop table tbPaciente;
 create table tbPaciente(
 codPaciente int primary key auto_increment,
 nmPaciente varchar(50),
@@ -32,13 +32,12 @@ foreign key (codEspecialidade) references tbEspecialidade(codEspecialidade)
 
 create table tbAtendimento(
 codAtendimento int primary key auto_increment,
-dataAtendimento varchar(10),
-horaDentista varchar(5),
+dataAtendimento varchar(14),
+horaDentista varchar(10),
 codPaciente int, 
 codDentista int,
 foreign key (codPaciente) references tbPaciente(codPaciente),
 foreign key (codDentista)  references tbDentista(codDentista));
-
 
 create view vwDentista as select
 tbDentista.codDentista,
@@ -48,31 +47,21 @@ tbDentista.codEspecialidade
 from tbDentista inner join tbEspecialidade
 	on tbDentista.codEspecialidade = tbEspecialidade.codEspecialidade;
     
-    create view vwEspeDent as select
-tbDentista.codDentista,
-tbEspecialidade.tipoEspecialidade,
-tbDentista.codEspecialidade
-from tbDentista inner join tbEspecialidade
-	on tbDentista.codEspecialidade = tbEspecialidade.codEspecialidade;
-    
-    SELECT * FROM tbEspecialidade ORDER BY tipoEspecialidade = 'cirurgião dentista';
-drop view vwDentista;
-
 create view vwAtendimento as select
+tbAtendimento.codAtendimento,
 tbAtendimento.dataAtendimento,
 tbAtendimento.horaDentista,
 tbPaciente.nmPaciente,
 tbDentista.nmDentista,
-tbDentista.codEspecialidade
+tbAtendimento.codPaciente,
+tbAtendimento.codDentista
 from tbAtendimento inner join tbPaciente 
 	on tbAtendimento.codPaciente = tbPaciente.codPaciente
 inner join tbDentista on tbAtendimento.codDentista = tbDentista.codDentista; 
-
+drop view vwAtendimento;
 
 select * from tbPaciente;
 select * from tbLogin;
 select * from tbDentista;
-select * from tbDentista where tipoEspecialidade=@id;
-update vwDentista set nmDentista="Caio", codEspecialidade=1 where codDentista=3;
+select * from tbAtendimento;
 
-update tbLogin set usuario="pudim13", senha="123456", tipo=1 where usuario="pudim2";
