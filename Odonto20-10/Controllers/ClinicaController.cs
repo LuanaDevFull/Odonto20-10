@@ -188,7 +188,7 @@ namespace Odonto20_10.Controllers
         public ActionResult cadDent(ModelDentista mdDent)
         {
                 CarregaEspecialidade();
-                mdDent.codEspecialidade = Request["especialidades"];
+                mdDent.codEspecialidade = Request["codEspecialidade"];
                 mdDent.nmDentista = Request["txtNmDent"];
                 acClinic.inserirDentista(mdDent);
                 ViewBag.msg = "Cadastro efetuado com sucesso";
@@ -355,19 +355,12 @@ namespace Odonto20_10.Controllers
         {
             CarregaPacientes();
             CarregaDentistas();
-            acClinic.TestarAgenda(cm);
-            if (cm.confAgendamento == "1")
-            {
-                cm.codDentista = Request["codDentista"];
-                cm.codPaciente = Request["codPaciente"];
-                cm.codAtendimento = id.ToString();
-                acClinic.atualizaAtendimento(cm);
-                ViewBag.msg = "Cadastro Atualizado com sucesso";
-            }
-            else if (cm.confAgendamento == "0")
-            {
-                ViewBag.msg = "A agenda não está diponível!";
-            }
+           cm.codDentista = Request["codDentista"];
+           cm.codPaciente = Request["codPaciente"];
+           cm.codAtendimento = id.ToString();
+           acClinic.atualizaAtendimento(cm);
+           ViewBag.msg = "Cadastro Atualizado com sucesso";
+           ViewBag.msg = "A agenda não está diponível!";
             return View();
         }
     }

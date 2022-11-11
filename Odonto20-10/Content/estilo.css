@@ -92,3 +92,9 @@ footer {
     font-size: 13px;
     margin-bottom: 0;
 }
+
+.valid{
+    width: 100%;
+    height: 50px;
+    background-color: aqua;
+}

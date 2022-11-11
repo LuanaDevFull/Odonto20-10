@@ -26,7 +26,7 @@ namespace Odonto20_10.Controllers
         [HttpPost]
         public ActionResult cadPaciente(ModelPaciente mdPac)
         {
-                mdPac.sexoPaciente = Request["sexoPaciente"];
+                mdPac                          .sexoPaciente = Request["sexoPaciente"];
                 acPac.inserirPaciente(mdPac);
                 ViewBag.msg = "Cadastro efetuado com sucesso";
                 return View();

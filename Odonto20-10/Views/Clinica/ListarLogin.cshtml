@@ -35,9 +35,11 @@
             <td>
                 @if (Session["tipoLogado2"] != null)
                 {
-                    @Html.ActionLink("Atualizar", "editarLogin", new { id = item.usuario })
-                    @Html.ActionLink("Excluir", "excluirLogin", new { id = item.usuario }, new { onclick = "return confirm('Deseja realmente excluir?');" })
-                }
+                    <p>
+                        @Html.ActionLink("Atualizar", "editarLogin", new { id = item.usuario })
+                        @Html.ActionLink("Excluir", "excluirLogin", new { id = item.usuario }, new { onclick = "return confirm('Deseja realmente excluir?');" })
+                    </p>
+                 }
             </td>
         </tr>
     }

@@ -1,6 +1,5 @@
 create database bdOdonto;
 use bdOdonto;
-drop database bdOdonto;
 
 create table tbLogin(
 usuario varchar(50) primary key,
@@ -32,12 +31,13 @@ foreign key (codEspecialidade) references tbEspecialidade(codEspecialidade)
 
 create table tbAtendimento(
 codAtendimento int primary key auto_increment,
-dataAtendimento varchar(14),
-horaDentista varchar(10),
+dataAtendimento varchar(10),
+horaDentista varchar(5),
 codPaciente int, 
 codDentista int,
 foreign key (codPaciente) references tbPaciente(codPaciente),
 foreign key (codDentista)  references tbDentista(codDentista));
+
 
 create view vwDentista as select
 tbDentista.codDentista,
@@ -47,21 +47,22 @@ tbDentista.codEspecialidade
 from tbDentista inner join tbEspecialidade
 	on tbDentista.codEspecialidade = tbEspecialidade.codEspecialidade;
     
+create view vwEspeDent as select
+tbDentista.codDentista,
+tbEspecialidade.tipoEspecialidade,
+tbDentista.codEspecialidade
+from tbDentista inner join tbEspecialidade
+	on tbDentista.codEspecialidade = tbEspecialidade.codEspecialidade;  
+ 
 create view vwAtendimento as select
 tbAtendimento.codAtendimento,
 tbAtendimento.dataAtendimento,
 tbAtendimento.horaDentista,
 tbPaciente.nmPaciente,
+tbPaciente.codPaciente,
+tbDentista.codDentista,
 tbDentista.nmDentista,
-tbAtendimento.codPaciente,
-tbAtendimento.codDentista
+tbDentista.codEspecialidade
 from tbAtendimento inner join tbPaciente 
 	on tbAtendimento.codPaciente = tbPaciente.codPaciente
 inner join tbDentista on tbAtendimento.codDentista = tbDentista.codDentista; 
-drop view vwAtendimento;
-
-select * from tbPaciente;
-select * from tbLogin;
-select * from tbDentista;
-select * from tbAtendimento;
-

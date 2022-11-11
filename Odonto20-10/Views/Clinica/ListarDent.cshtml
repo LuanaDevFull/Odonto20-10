@@ -36,9 +36,11 @@
             <td>
                 @if (Session["tipoLogado2"] != null)
                 {
-                    @Html.ActionLink("Atualizar", "editarDent", new { id = item.codDentista })
-                    @Html.ActionLink("Excluir", "excluirDent", new { id = item.codDentista }, new { onclick = "return confirm('Deseja realmente excluir?');" })
-                }
+                    <p>
+                        @Html.ActionLink("Atualizar", "editarDent", new { id = item.codDentista })
+                        @Html.ActionLink("Excluir", "excluirDent", new { id = item.codDentista }, new { onclick = "return confirm('Deseja realmente excluir?');" })
+                    </p>
+                 }
             </td>
         </tr>
     }
